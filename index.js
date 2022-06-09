@@ -13,6 +13,7 @@ import { moveFile } from './src/mv.js';
 import { removeFile } from './src/rm.js';
 import { printOsInfo } from './src/os.js';
 import { calcHash } from './src/hash.js';
+import { compress, decompress } from './src/zip.js';
 
 let startDirectory = homedir();
 const rl = readline.createInterface({
@@ -71,6 +72,12 @@ const switchOperation = async (inputLine) => {
       break;
     case 'hash':
       await calcHash(resolve(startDirectory, inputArgs[0]));
+      break;
+    case 'compress':
+      await compress(resolve(startDirectory, inputArgs[0]), resolve(startDirectory, inputArgs[1]));
+      break;
+    case 'decompress':
+      await decompress(resolve(startDirectory, inputArgs[0]), resolve(startDirectory, inputArgs[1]));
       break;
     case '.exit':
       rl.close();
