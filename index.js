@@ -1,9 +1,16 @@
 import { homedir, EOL } from 'os';
+import { resolve } from 'path';
 import readline from 'readline';
 
 import { up } from './src/up.js';
 import { changeDirectory } from './src/cd.js';
 import { showFiles } from './src/ls.js';
+import { readFileContent } from './src/cat.js';
+import { addNewFile } from './src/add.js';
+import { renameFile } from './src/rn.js';
+import { copyExistedFile } from './src/cp.js';
+import { moveFile } from './src/mv.js';
+import { removeFile } from './src/rm.js';
 
 let startDirectory = homedir();
 const rl = readline.createInterface({
@@ -27,7 +34,7 @@ const setDirectory = async (newDirName) => {
 const switchOperation = async (inputLine) => {
   const inputArray = inputLine.split(' ');
   const command = inputArray.shift();
-  const inputArgs = inputArray;
+  const inputArgs = [...inputArray];
 
   switch (command) {
     case 'up':
@@ -39,8 +46,26 @@ const switchOperation = async (inputLine) => {
     case 'ls':
       await showFiles(startDirectory);
       break;
+    case 'cat':
+      await readFileContent(resolve(startDirectory, inputArgs[0]));
+      break;
+    case 'add':
+      await addNewFile(resolve(startDirectory, inputArgs[0]));
+      break;
+    case 'rn':
+      await renameFile(resolve(startDirectory, inputArgs[0]), inputArgs[1]);
+      break;
+    case 'cp':
+      await copyExistedFile(resolve(startDirectory, inputArgs[0]), resolve(startDirectory, inputArgs[1]));
+      break;
+    case 'mv':
+      await moveFile(resolve(startDirectory, inputArgs[0]), resolve(startDirectory, inputArgs[1]));
+      break;
+    case 'rm':
+      await removeFile(resolve(startDirectory, inputArgs[0]));
+      break;
     default:
-      console.log(`Invalid input ${command}`);
+      console.log(`\x1b[31mInvalid input ${command}\x1b[0m`);
       break;
   }
 
@@ -66,6 +91,6 @@ if (startIndex !== -1) {
   console.log(`Welcome to the File Manager, ${userName}!`);
   start(userName);
 } else {
-  console.log('Incorrect --username argument');
+  console.log('\x1b[31mIncorrect --username argument\x1b[0m');
   process.exit();
 }

@@ -12,6 +12,6 @@ export const showFiles = async (folder) => {
 
       console.log(listArr);
   } catch (err) {
-      if (err) console.log('Operation failed');
+      if (err) console.log('\x1b[31mOperation failed\x1b[0m');
   }
 };
