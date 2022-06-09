@@ -11,6 +11,8 @@ import { renameFile } from './src/rn.js';
 import { copyExistedFile } from './src/cp.js';
 import { moveFile } from './src/mv.js';
 import { removeFile } from './src/rm.js';
+import { printOsInfo } from './src/os.js';
+import { calcHash } from './src/hash.js';
 
 let startDirectory = homedir();
 const rl = readline.createInterface({
@@ -63,6 +65,15 @@ const switchOperation = async (inputLine) => {
       break;
     case 'rm':
       await removeFile(resolve(startDirectory, inputArgs[0]));
+      break;
+    case 'os':
+      printOsInfo(inputArgs[0]);
+      break;
+    case 'hash':
+      await calcHash(resolve(startDirectory, inputArgs[0]));
+      break;
+    case '.exit':
+      rl.close();
       break;
     default:
       console.log(`\x1b[31mInvalid input ${command}\x1b[0m`);
