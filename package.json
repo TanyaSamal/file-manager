@@ -1,0 +1,20 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "nodejs task",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TanyaSamal/file-manager.git"
+  },
+  "author": "TanyaSamal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TanyaSamal/file-manager/issues"
+  },
+  "homepage": "https://github.com/TanyaSamal/file-manager#readme"
+}
