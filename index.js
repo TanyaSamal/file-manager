@@ -2,6 +2,7 @@ import { homedir, EOL } from 'os';
 import { resolve } from 'path';
 import readline from 'readline';
 
+import { parsePath } from './utils.js';
 import { up } from './src/up.js';
 import { changeDirectory } from './src/cd.js';
 import { showFiles } from './src/ls.js';
@@ -35,9 +36,7 @@ const setDirectory = async (newDirName) => {
 }
 
 const switchOperation = async (inputLine) => {
-  const inputArray = inputLine.split(' ');
-  const command = inputArray.shift();
-  const inputArgs = [...inputArray];
+  const { command, inputArgs } = parsePath(inputLine);
 
   switch (command) {
     case 'up':
